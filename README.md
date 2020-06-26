@@ -34,6 +34,8 @@ include the following:
  `clean install -DskipTests -native`.  This will effectively build all Pi4J projects including
  the native library projects which will be cross-compiled for RaspberryPi/ARM (32-bit & 64-bit) devices.  
 
+**Note:** Pi4J versions prior to v1.4 are not currently tested or supported in these Docker images.
+
 ---
 ### Prerequisites:
 ``` 
