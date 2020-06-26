@@ -109,10 +109,16 @@ The Pi4J Docker Builder images are built using the following shell scripts:
 | ------------- | ------------- |
 | `./build.sh`  | builds all the Pi4J Builder images locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./deploy.sh`  | builds all the Pi4J Builder images and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
+| `./clean.sh`  | cleans the build environment and removes images from the local system for all the Pi4J Builder images. |
 | `./pi4j-builder-base/build.sh`  | builds the Pi4J Base Builder image locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-base/build.sh --push`  | builds the Pi4J Base Builder images and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
+| `./pi4j-builder-base/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Base Builder image. |
 | `./pi4j-builder-native/build.sh`  | builds the Pi4J Native Builder image locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-native/build.sh --push`  | builds the Pi4J Native Builder image and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
+| `./pi4j-builder-native/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Native Builder image. |
 | `./pi4j-builder-1.4/build.sh`  | builds the Pi4J Builder image for Pi4J v1.4  locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
-| `./pi4j-builder-1.4/build.sh --push`  | builds the Pi4J Builder image for Pi4J v1.4 and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. | `./pi4j-builder-2.0/build.sh`  | builds the Pi4J Builder image for Pi4J v2.0  locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
+| `./pi4j-builder-1.4/build.sh --push`  | builds the Pi4J Builder image for Pi4J v1.4 and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. 
+| `./pi4j-builder-1.4/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Builder image for Pi4J v1.4. |
+| `./pi4j-builder-2.0/build.sh`  | builds the Pi4J Builder image for Pi4J v2.0  locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-2.0/build.sh --push`  | builds the Pi4J Builder image for Pi4J v2.0 and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
+| `./pi4j-builder-2.0/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Builder image for Pi4J v2.0. |
