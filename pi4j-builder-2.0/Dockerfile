@@ -19,7 +19,7 @@ LABEL org.label-schema.version=$BUILDVERSION
 LABEL org.label-schema.docker.cmd="docker run --user \"$(id -u):$(id -g)\" --rm --volume $(pwd):/build pi4j/pi4j-builder:$BUILDVERSION"
 
 RUN echo "========================================================="
-RUN echo "  BUILDING DOCKER Pi4J v2.0 BUILDER IMAGE FOR: $TARGETARCH"
+RUN echo "  BUILDING DOCKER Pi4J v$BUILDVERSION BUILDER IMAGE FOR: $TARGETARCH"
 RUN echo "========================================================="
 
 # ---------------------------------------------------------------------------------
