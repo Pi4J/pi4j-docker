@@ -61,7 +61,9 @@ echo "**********************************************************************"
 echo
 
 # use buildx to create a new builder instance; if needed
-docker buildx create --use --name pi4j-builder-native || true;
+docker buildx create --driver-opt env.BUILDKIT_STEP_LOG_MAX_SIZE=10485760   \
+                     --driver-opt env.BUILDKIT_STEP_LOG_MAX_SPEED=100000000 \
+                     --use --name pi4j-builder-native || true;
 
 # perform multi-arch platform image builds; push the resulting image to the Pi4J DockerHub repository
 # (https://hub.docker.com/r/pi4j/pi4j-native-builder)

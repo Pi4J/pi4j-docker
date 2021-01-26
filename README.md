@@ -23,7 +23,7 @@ include the following:
  This image is derived from `pi4j/pi4j-builder-native` and additionally includes pre-cached Maven 
  build plugins and dependencies for [Pi4J v1.4](http://github.com/Pi4J/pi4j) builds.  This image's 
  entry point is a Maven shell.  If not explicitly provided, the default maven build arguments will be: 
- `clean install -DskipTests -Pall-platforms`.  This will effectively build all Pi4J projects including
+ `clean install -DskipTests -Pnative,cross-compile`.  This will effectively build all Pi4J projects including
  the `pi4j-native` project containing native libraries which will be cross-compiled for RaspberryPi/ARM 
  (32-bit & 64-bit) devices.  
 
@@ -31,7 +31,7 @@ include the following:
  This image is derived from `pi4j/pi4j-builder-native` and additionally includes pre-cached Maven 
  build plugins and dependencies for [Pi4J v2.0](http://github.com/Pi4J/pi4j-v2) builds.  This image's 
  entry point is a Maven shell.  If not explicitly provided, the default maven build arguments will be: 
- `clean install -DskipTests -native`.  This will effectively build all Pi4J projects including
+ `clean install -DskipTests -Pnative,cross-compile`.  This will effectively build all Pi4J projects including
  the native library projects which will be cross-compiled for RaspberryPi/ARM (32-bit & 64-bit) devices.  
 
 **Note:** Pi4J versions prior to v1.4 are not currently tested or supported in these Docker images.

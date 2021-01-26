@@ -25,14 +25,17 @@ RUN echo "========================================================="
 # ---------------------------------------------------------------------------------
 # PROJECT BUILDER IMAGE FOR Pi4J v2.0
 # ---------------------------------------------------------------------------------
-# we want to cache all build dependencies to speed up build-time
-# so we will clone the Pi4J project from GitHub and perform a complete build
-# when done we will simply delete the project sources from the image
+# we want to locally cache all build dependencies to speed up build-time,
+# so we will clone the Pi4J project from GitHub and perform a download
+# of all Maven build plugins and dependencies.  When complete we will
+# simply delete the project sources from the image and leave the M2
+# repository cache as part of the container image
 RUN git clone --single-branch --branch master https://github.com/Pi4J/pi4j-v2 /pi4j
 RUN cd /pi4j && \
-    mvn clean install -Pnative -DskipTests &&  \
+    mvn dependency:resolve dependency:resolve-plugins -DexcludeGroupIds="com.pi4j" -Pnative && \
     rm -R /pi4j
 
+# ensure read/write access permissions to the M2 repository cache for all users
 RUN chmod -R a+rw /m2
 
 # configure environment variables
@@ -43,4 +46,4 @@ ENV PI4J_BUILDER="$BUILDVERSION"
 ENTRYPOINT ["/usr/bin/mvn"]
 
 # use these default parameters for the Maven build; can be overridden by caller
-CMD ["clean", "install", "-DskipTests", "-Pnative"]
+CMD ["clean", "install", "-DskipTests", "-Pnative,cross-compile"]
