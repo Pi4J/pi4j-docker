@@ -3,14 +3,14 @@
 # #%L
 # **********************************************************************
 # ORGANIZATION  :  Pi4J
-# PROJECT       :  Pi4J :: Clean All Docker Images for Pi4J Builders
-# FILENAME      :  clean.sh
+# PROJECT       :  Pi4J :: Build Docker Image for Pi4J Repo Builder
+# FILENAME      :  build.sh
 #
 # This file is part of the Pi4J project. More information about
 # this project can be found here:  https://pi4j.com/
 # **********************************************************************
 # %%
-# Copyright (C) 2012 - 2020 Pi4J
+# Copyright (C) 2012 - 2021 Pi4J
 # %%
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +27,7 @@
 #
 # #L%
 ###
+
 
 #-----------------------------------------------------------------------------------------
 # !! THIS DOCKER BUILD REQUIRES THE EXPERIMENTAL DOCKER BUILDX PLUGIN !!
@@ -50,50 +51,29 @@
 #
 #-----------------------------------------------------------------------------------------
 
-BASE_DIR=$PWD
+# docker image version
+VERSION=1.0
 
 echo
 echo "**********************************************************************"
-echo "*                                                                    *"
-echo "* CLEANING ALL Pi4J BUILDERS (DOCKER IMAGES)                         *"
-echo "*                                                                    *"
+echo "* BUILDING Pi4J REPO BUILDER (DOCKER IMAGE)                          *"
 echo "**********************************************************************"
 echo
 
-# **********************************************************************
-# CLEANING Pi4J BASE BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-base
-./clean.sh $@
+# use buildx to create a new builder instance; if needed
+docker buildx create --driver-opt env.BUILDKIT_STEP_LOG_MAX_SIZE=10485760   \
+                     --driver-opt env.BUILDKIT_STEP_LOG_MAX_SPEED=100000000 \
+                     --use --name pi4j-builder-repo || true;
 
-# **********************************************************************
-# CLEANING Pi4J NATIVE BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-native
-./clean.sh $@
+# perform multi-arch platform image builds; push the resulting image to the Pi4J DockerHub repository
+# (https://hub.docker.com/r/pi4j/pi4j-builder-base)
+docker buildx build \
+  --build-arg BUILDDATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+  --build-arg BUILDVERSION="1.0" \
+  --platform linux/amd64 \
+  --tag pi4j/pi4j-builder-repo:$VERSION \
+  --tag pi4j/pi4j-builder-repo:latest . $@
 
-# **********************************************************************
-# CLEANING Pi4J v1.4 BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-1.4
-./clean.sh $@
-
-# **********************************************************************
-# CLEANING Pi4J v2.0 BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-2.0
-./clean.sh $@
-
-# **********************************************************************
-# CLEANING Pi4J REPO BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-repo
-./clean.sh $@
-
-echo
-echo "**********************************************************************"
-echo "*                                                                    *"
-echo "* FINISHED CLEANING ALL Pi4J BUILDERS (DOCKER IMAGES)                *"
-echo "*                                                                    *"
-echo "**********************************************************************"
-echo
+# remove the builder instance when completed
+#docker buildx rm pi4j-builder-repo:$VERSION
+#docker buildx rm pi4j-builder-repo:latest

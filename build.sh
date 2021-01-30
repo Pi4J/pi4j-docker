@@ -84,6 +84,12 @@ cd $BASE_DIR/pi4j-builder-1.4
 cd $BASE_DIR/pi4j-builder-2.0
 ./build.sh $@
 
+# **********************************************************************
+# BUILDING Pi4J REPO BUILDER (DOCKER IMAGE)
+# **********************************************************************
+cd $BASE_DIR/pi4j-builder-repo
+./build.sh $@
+
 echo
 echo "**********************************************************************"
 echo "*                                                                    *"

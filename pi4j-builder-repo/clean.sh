@@ -3,7 +3,7 @@
 # #%L
 # **********************************************************************
 # ORGANIZATION  :  Pi4J
-# PROJECT       :  Pi4J :: Clean All Docker Images for Pi4J Builders
+# PROJECT       :  Pi4J :: Clean Docker Image for Pi4J Repo Builder
 # FILENAME      :  clean.sh
 #
 # This file is part of the Pi4J project. More information about
@@ -28,6 +28,7 @@
 # #L%
 ###
 
+
 #-----------------------------------------------------------------------------------------
 # !! THIS DOCKER BUILD REQUIRES THE EXPERIMENTAL DOCKER BUILDX PLUGIN !!
 #-----------------------------------------------------------------------------------------
@@ -50,50 +51,18 @@
 #
 #-----------------------------------------------------------------------------------------
 
-BASE_DIR=$PWD
+# docker image version
+VERSION=1.0
 
 echo
 echo "**********************************************************************"
-echo "*                                                                    *"
-echo "* CLEANING ALL Pi4J BUILDERS (DOCKER IMAGES)                         *"
-echo "*                                                                    *"
+echo "* CLEANING Pi4J REPO BUILDER (DOCKER IMAGE)                          *"
 echo "**********************************************************************"
 echo
 
-# **********************************************************************
-# CLEANING Pi4J BASE BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-base
-./clean.sh $@
+# remove the builder instance
+docker buildx rm pi4j-builder-repo || true
 
-# **********************************************************************
-# CLEANING Pi4J NATIVE BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-native
-./clean.sh $@
-
-# **********************************************************************
-# CLEANING Pi4J v1.4 BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-1.4
-./clean.sh $@
-
-# **********************************************************************
-# CLEANING Pi4J v2.0 BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-2.0
-./clean.sh $@
-
-# **********************************************************************
-# CLEANING Pi4J REPO BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-repo
-./clean.sh $@
-
-echo
-echo "**********************************************************************"
-echo "*                                                                    *"
-echo "* FINISHED CLEANING ALL Pi4J BUILDERS (DOCKER IMAGES)                *"
-echo "*                                                                    *"
-echo "**********************************************************************"
-echo
+# remove any containers from local Docker registry
+docker rmi --force pi4j/pi4j-builder-repo:$VERSION
+docker rmi --force pi4j/pi4j-builder-repo:latest
