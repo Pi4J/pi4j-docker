@@ -1,12 +1,16 @@
 name: Continious Integration
 
- 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-#   push:
-#     branches: [ master ]
-#   pull_request:
-#     branches: [ master ]
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '**.md'
+      - '**.sh'
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - '**.md'
+      - '**.sh'
   workflow_dispatch:
 
 jobs:
