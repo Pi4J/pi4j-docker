@@ -1,5 +1,6 @@
 name: Continious Integration
 
+ 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
 #   push:
@@ -10,7 +11,7 @@ on:
 
 jobs:
   pi4j-builder-base:
-    name: Build & Push `pi4j-builder-base`
+    name: Build `pi4j-builder-base`
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,7 +34,8 @@ jobs:
          cd pi4j-builder-base
          ./build.sh --push
   pi4j-builder-native:
-    name: Build & Push `pi4j-builder-native`
+    needs: [pi4j-builder-base]
+    name: Build `pi4j-builder-native`
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -47,6 +49,40 @@ jobs:
       - name: Build image for `pi4j-builder-native`
         run: |
          cd pi4j-builder-native
+         ./build.sh --push
+  pi4j-builder-1.4:
+    needs: [pi4j-builder-base,pi4j-builder-native]
+    name: Build `pi4j-builder-1.4`
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Build image for `pi4j-builder-1.4`
+        run: |
+         cd pi4j-builder-1.4
+         ./build.sh --push
+  pi4j-builder-2.0:
+    needs: [pi4j-builder-base,pi4j-builder-native]
+    name: Build `pi4j-builder-2.0`
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Build image for `pi4j-builder-2.0`
+        run: |
+         cd pi4j-builder-2.0
          ./build.sh --push
 
 
