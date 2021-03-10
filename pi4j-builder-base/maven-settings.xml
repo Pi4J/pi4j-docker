@@ -128,6 +128,22 @@ under the License.
       <passphrase>optional; leave empty if not used.</passphrase>
     </server>
     -->
+
+    <server>
+        <id>ossrh</id>
+        <username>${env.MAVEN_USERNAME}</username>
+        <password>${env.MAVEN_PASSWORD}</password>
+    </server>
+    <server>
+        <id>sonatype-oss-snapshots</id>
+        <username>${env.MAVEN_USERNAME}</username>
+        <password>${env.MAVEN_PASSWORD}</password>
+    </server>
+    <server>
+        <id>sonatype-oss-staging</id>
+        <username>${env.MAVEN_USERNAME}</username>
+        <password>${env.MAVEN_PASSWORD}</password>
+    </server>
 </servers>
 
 <!-- mirrors
