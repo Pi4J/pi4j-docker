@@ -43,7 +43,7 @@ jobs:
         run: echo ${{ steps.buildx.outputs.platforms }}          
       
       - name: Build and push Docker images
-        run: ./build
+        run: ./build.sh
         
 #         uses: docker/build-push-action@v2.3.0
 #         with:
