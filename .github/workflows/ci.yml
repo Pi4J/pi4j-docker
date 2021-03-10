@@ -46,6 +46,6 @@ jobs:
       
       - name: Build and push Docker images
         run: |
-        cd pi4j-builder-base
-        ./deploy.sh
+         cd pi4j-builder-base
+         ./deploy.sh
 
