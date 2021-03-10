@@ -50,7 +50,7 @@ jobs:
         run: |
          cd pi4j-builder-native
          ./build.sh --push
-  pi4j-builder-1.4:
+  pi4j-builder-1_4:
     needs: [pi4j-builder-base,pi4j-builder-native]
     name: Build `pi4j-builder-1.4`
     runs-on: ubuntu-latest
@@ -67,7 +67,7 @@ jobs:
         run: |
          cd pi4j-builder-1.4
          ./build.sh --push
-  pi4j-builder-2.0:
+  pi4j-builder-2_0:
     needs: [pi4j-builder-base,pi4j-builder-native]
     name: Build `pi4j-builder-2.0`
     runs-on: ubuntu-latest
