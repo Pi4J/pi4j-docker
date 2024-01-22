@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------
 # NATIVE BUILDER IMAGE FOR Pi4J (cross-compilers for ARMHF & AARCH64)
 # ---------------------------------------------------------------------------------
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 ARG TARGETARCH
 ARG BUILDDATE
 ARG BUILDVERSION
@@ -27,11 +27,11 @@ RUN apt-get update && \
     apt-get install --yes apt-utils
 
 # install additional build tools and utilities
-RUN apt-get install --yes git build-essential tree nano file curl wget
+RUN apt-get install --yes git build-essential tree nano file curl wget libgpiod-dev gcc-multilib
 
-# install OpenJDK 11 (JDK) and configure JAVA_HOME environment variable
-RUN apt-get install --yes openjdk-11-jdk-headless
-ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-$TARGETARCH/"
+# install OpenJDK 21 (JDK) and configure JAVA_HOME environment variable
+RUN apt-get install --yes openjdk-21-jdk-headless
+ENV JAVA_HOME="/usr/lib/jvm/java-21-openjdk-$TARGETARCH/"
 
 # install Apache Maven
 RUN apt-get install --yes maven

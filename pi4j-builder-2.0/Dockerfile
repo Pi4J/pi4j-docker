@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------
 # NATIVE BUILDER IMAGE FOR Pi4J (cross-compilers for ARMHF & AARCH64)
 # ---------------------------------------------------------------------------------
-FROM pi4j/pi4j-builder-native:2.0
+FROM pi4j/pi4j-builder-native:latest
 ARG TARGETARCH
 ARG BUILDDATE
 ARG BUILDVERSION

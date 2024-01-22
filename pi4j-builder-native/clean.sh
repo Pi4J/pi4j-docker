@@ -64,6 +64,5 @@ echo
 docker buildx rm pi4j-builder-native || true
 
 # remove any containers from local Docker registry
-docker rmi --force pi4j/pi4j-builder-native:1.4
 docker rmi --force pi4j/pi4j-builder-native:$VERSION
 docker rmi --force pi4j/pi4j-builder-native:latest

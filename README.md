@@ -9,8 +9,8 @@ docker images used for compiling/building the Pi4J projects.  The Pi4J builder i
 include the following:
 
  - **[Pi4J Base Builder](https://hub.docker.com/repository/docker/pi4j/pi4j-builder-base)** `pi4j/pi4j-builder-base:latest` : 
- This is the base image used by all the other builder images.  It's based on Ubuntu 18.04 
- with JDK 11 and Maven pre-installed.  This image's entry point is a Bash shell.
+ This is the base image used by all the other builder images.  It's based on Ubuntu 22.04 
+ with JDK 21 and Maven pre-installed.  This image's entry point is a Bash shell.
  (https://hub.docker.com/repository/docker/pi4j/pi4j-builder-base)
  
  - **[Pi4J Native Builder](https://hub.docker.com/repository/docker/pi4j/pi4j-builder-native)** `pi4j/pi4j-builder-native:latest` : 
@@ -18,15 +18,7 @@ include the following:
  and build tools for architectures: `arm`, `armhf`, `aarch64/arm64`.  This image's 
  entry point is a bash shell attempting to execute the file `./build.sh` in the volume mounted 
  under the `/build` path.
-  
- - **[Pi4J v1.4 Builder](https://hub.docker.com/repository/docker/pi4j/pi4j-builder:1.4)** `pi4j/pi4j-builder:1.4` : 
- This image is derived from `pi4j/pi4j-builder-native` and additionally includes pre-cached Maven 
- build plugins and dependencies for [Pi4J v1.4](http://github.com/Pi4J/pi4j) builds.  This image's 
- entry point is a Maven shell.  If not explicitly provided, the default maven build arguments will be: 
- `clean install -DskipTests -Pnative,cross-compile`.  This will effectively build all Pi4J projects including
- the `pi4j-native` project containing native libraries which will be cross-compiled for RaspberryPi/ARM 
- (32-bit & 64-bit) devices.  
-
+ 
  - **[Pi4J v2.0 Builder](https://hub.docker.com/repository/docker/pi4j/pi4j-builder:2.0)** `pi4j/pi4j-builder:2.0` : 
  This image is derived from `pi4j/pi4j-builder-native` and additionally includes pre-cached Maven 
  build plugins and dependencies for [Pi4J v2.0](http://github.com/Pi4J/pi4j-v2) builds.  This image's 
@@ -34,7 +26,7 @@ include the following:
  `clean install -DskipTests -Pnative,cross-compile`.  This will effectively build all Pi4J projects including
  the native library projects which will be cross-compiled for RaspberryPi/ARM (32-bit & 64-bit) devices.  
 
-**Note:** Pi4J versions prior to v1.4 are not currently tested or supported in these Docker images.
+**Note:** Pi4J versions prior to v2.0 are not supported in these Docker images.
 
 ---
 ### Prerequisites:
@@ -63,25 +55,6 @@ include the following:
 ```
 ---
 ### How to Build the Pi4J Project using these Docker Images:
-
-#### Build Pi4J v1.4
-
-Navigate to the parent "pi4j" directory and execute the following Docker commands:  
-```
-docker pull pi4j/pi4j-builder:1.4
-docker run \\
-    --user "$(id -u):$(id -g)" \
-    --rm \
-    --volume $(pwd):/build \
-    pi4j/pi4j-builder:1.4
-```
-| Docker Command Argument  | Description |
-| ------------- | ------------- |
-| `run`  | launch the Pi4J Builder container  |
-| `--user` | Run the build container with your user id/group id. (_this is not needed for Window or MacOS_)  |
-| `--rm`  | Remove the temporary build container upon completion  |
-| `--volume`  | Mount the current directory to the Docker container's `/build` path.  This is where the container will attempt to locate and execute the `./build.sh` script. |
-| `pi4j/pi4j-builder:1.4` | The Pi4J build container image name and version. |
 
 #### Build Pi4J v2.0
 
@@ -118,9 +91,6 @@ The Pi4J Docker Builder images are built using the following shell scripts:
 | `./pi4j-builder-native/build.sh`  | builds the Pi4J Native Builder image locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-native/build.sh --push`  | builds the Pi4J Native Builder image and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-native/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Native Builder image. |
-| `./pi4j-builder-1.4/build.sh`  | builds the Pi4J Builder image for Pi4J v1.4  locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
-| `./pi4j-builder-1.4/build.sh --push`  | builds the Pi4J Builder image for Pi4J v1.4 and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. 
-| `./pi4j-builder-1.4/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Builder image for Pi4J v1.4. |
 | `./pi4j-builder-2.0/build.sh`  | builds the Pi4J Builder image for Pi4J v2.0  locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-2.0/build.sh --push`  | builds the Pi4J Builder image for Pi4J v2.0 and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-2.0/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Builder image for Pi4J v2.0. |
