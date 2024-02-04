@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------
 # NATIVE BUILDER IMAGE FOR Pi4J (cross-compilers for ARMHF & AARCH64)
 # ---------------------------------------------------------------------------------
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 ARG TARGETARCH
 ARG BUILDDATE
 ARG BUILDVERSION
