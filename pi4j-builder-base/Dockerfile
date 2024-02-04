@@ -27,7 +27,7 @@ RUN apt-get update && \
     apt-get install --yes apt-utils
 
 # install additional build tools and utilities
-RUN apt-get install --yes git build-essential tree nano file curl wget
+RUN apt-get install --yes git build-essential tree nano file curl wget autoconf autoconf-archive libtool pkg-config libgpiod-dev
 
 # install OpenJDK 11 (JDK) and configure JAVA_HOME environment variable
 RUN apt-get install --yes openjdk-11-jdk-headless
