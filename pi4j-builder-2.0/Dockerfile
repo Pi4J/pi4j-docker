@@ -32,7 +32,7 @@ RUN echo "========================================================="
 # repository cache as part of the container image
 RUN git clone --single-branch --branch main https://github.com/Pi4J/pi4j-v2 /pi4j
 RUN cd /pi4j && \
-    mvn dependency:resolve dependency:resolve-plugins -DexcludeGroupIds="com.pi4j" -Pnative && \
+    mvn dependency:go-offline -DexcludeGroupIds=com.pi4j -Pnative && \
     rm -R /pi4j
 
 # ensure read/write access permissions to the M2 repository cache for all users

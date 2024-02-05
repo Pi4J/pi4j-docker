@@ -80,8 +80,8 @@ cd $BASE_DIR/pi4j-builder-native
 # **********************************************************************
 # BUILDING Pi4J v2.0 BUILDER (DOCKER IMAGE)
 # **********************************************************************
-#cd $BASE_DIR/pi4j-builder-2.0
-#./build.sh $@
+cd $BASE_DIR/pi4j-builder-2.0
+./build.sh $@
 
 # **********************************************************************
 # BUILDING Pi4J REPO BUILDER (DOCKER IMAGE)
