@@ -1,4 +1,4 @@
-name: Continious Integration
+name: Continuous Integration
 
 on:
   push:
@@ -54,23 +54,6 @@ jobs:
         run: |
          cd pi4j-builder-native
          ./build.sh --push
-  pi4j-builder-1_4:
-    needs: [pi4j-builder-base,pi4j-builder-native]
-    name: Build `pi4j-builder-1.4`
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Build image for `pi4j-builder-1.4`
-        run: |
-         cd pi4j-builder-1.4
-         ./build.sh --push
   pi4j-builder-2_0:
     needs: [pi4j-builder-base,pi4j-builder-native]
     name: Build `pi4j-builder-2.0`
@@ -88,5 +71,3 @@ jobs:
         run: |
          cd pi4j-builder-2.0
          ./build.sh --push
-
-
