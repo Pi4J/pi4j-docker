@@ -60,6 +60,11 @@ echo "*                                                                    *"
 echo "**********************************************************************"
 echo
 
+#docker buildx rm --force pi4j-builder || true
+#docker buildx create --use --bootstrap \
+#  --driver=docker-container \
+#  --name pi4j-builder
+
 # **********************************************************************
 # BUILDING Pi4J BASE BUILDER (DOCKER IMAGE)
 # **********************************************************************
@@ -73,12 +78,6 @@ cd $BASE_DIR/pi4j-builder-native
 ./build.sh $@
 
 # **********************************************************************
-# BUILDING Pi4J v1.4 BUILDER (DOCKER IMAGE)
-# **********************************************************************
-cd $BASE_DIR/pi4j-builder-1.4
-./build.sh $@
-
-# **********************************************************************
 # BUILDING Pi4J v2.0 BUILDER (DOCKER IMAGE)
 # **********************************************************************
 cd $BASE_DIR/pi4j-builder-2.0
@@ -87,8 +86,10 @@ cd $BASE_DIR/pi4j-builder-2.0
 # **********************************************************************
 # BUILDING Pi4J REPO BUILDER (DOCKER IMAGE)
 # **********************************************************************
-cd $BASE_DIR/pi4j-builder-repo
-./build.sh $@
+#cd $BASE_DIR/pi4j-builder-repo
+#./build.sh $@
+
+#docker buildx rm --force pi4j-builder
 
 echo
 echo "**********************************************************************"

@@ -25,21 +25,20 @@ RUN apt-get update
 #RUN apt-get install --yes gcc-arm-linux-gnueabi
 
 # install ARM cross compiler toolchains for 32-bit ARMHF
-#RUN apt-get install --yes gcc-arm-linux-gnueabihf
+RUN apt-get install --yes gcc-arm-linux-gnueabihf
 
 # install ARM cross compiler toolchains for 64-bit ARM64
-# (only install on amd64 platforms)
-RUN if [ "$TARGETARCH" = "amd64" ] ; then apt-get --yes install gcc-aarch64-linux-gnu ; fi
+RUN apt-get install --yes gcc-aarch64-linux-gnu
 
 # install RaspberryPi ARM cross compiler toolchains for 32-bit ARMHF (ARMv6+ARMv7+ARMv8)
 # (get the latest RPI cross compiler tools from the GitHub repo)
-RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --depth=1 /opt/rpi-tools
+#RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --depth=1 /opt/rpi-tools
 
 # clean APT cache
 RUN apt-get clean
 
 # configure the PATH for ARM cross compiler toolchains for 32-bit ARMHF (ARMv6 + ARMv7)
-ENV PATH="/opt/rpi-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin:${PATH}"
+#ENV PATH="/opt/rpi-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin:${PATH}"
 
 # configure build time environment variables
 ENV PI4J_BUILDER_NATIVE="$BUILDVERSION"
