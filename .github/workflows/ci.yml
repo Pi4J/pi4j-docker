@@ -17,6 +17,7 @@ jobs:
   pi4j-builder-base:
     name: Build `pi4j-builder-base`
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - name: Login to Docker Hub
@@ -25,18 +26,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-#       - name: Set up Docker Buildx
-#         id: buildx
-#         uses: docker/setup-buildx-action@v1
-#       - name: Builder instance name
-#         run: echo ${{ steps.buildx.outputs.name }}
-#       - name: Available platforms
-#         run: echo ${{ steps.buildx.outputs.platforms }}          
+        uses: docker/setup-qemu-action@v1       
       - name: Build image for `pi4j-builder-base`
         run: |
          cd pi4j-builder-base
          ./build.sh --push
+
   pi4j-builder-native:
     needs: [pi4j-builder-base]
     name: Build `pi4j-builder-native`
@@ -54,6 +49,7 @@ jobs:
         run: |
          cd pi4j-builder-native
          ./build.sh --push
+         
   pi4j-builder-2_0:
     needs: [pi4j-builder-base,pi4j-builder-native]
     name: Build `pi4j-builder-2.0`
