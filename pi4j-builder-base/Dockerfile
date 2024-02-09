@@ -27,7 +27,7 @@ RUN apt-get update && \
     apt-get install --yes apt-utils
 
 # install additional build tools and utilities
-RUN apt-get install --yes git build-essential tree nano file curl wget autoconf autoconf-archive libtool pkg-config gcc-multilib
+RUN apt-get install --yes git build-essential tree nano file curl wget autoconf autoconf-archive libtool pkg-config
 
 # install OpenJDK 21 (JDK) and configure JAVA_HOME environment variable
 RUN apt-get install --yes openjdk-21-jdk-headless
