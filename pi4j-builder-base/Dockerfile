@@ -34,8 +34,10 @@ RUN apt-get install --yes openjdk-21-jdk-headless
 ENV JAVA_HOME="/usr/lib/jvm/java-21-openjdk-$TARGETARCH/"
 
 # install Apache Maven
-RUN apt list -a maven
-RUN apt-get install --yes maven=3.9.0
+RUN curl -s "https://get.sdkman.io" | bash
+RUN source "$HOME/.sdkman/bin/sdkman-init.sh"
+RUN sdk install maven 3.9.4
+RUN sdk use maven 3.9.4
 
 # configure Maven with custom settings for defined M2 repository path
 COPY maven-settings.xml /usr/share/maven/conf/settings.xml
