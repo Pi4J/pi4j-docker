@@ -43,7 +43,7 @@ ENV PI4J_BUILDER_DATE="$BUILDDATE"
 ENV PI4J_BUILDER="$BUILDVERSION"
 
 # always launch Maven to perform the build
-ENTRYPOINT ["/usr/bin/mvn"]
+ENTRYPOINT ["mvn"]
 
 # use these default parameters for the Maven build; can be overridden by caller
 CMD ["clean", "install", "-DskipTests", "-Pnative,cross-compile"]
