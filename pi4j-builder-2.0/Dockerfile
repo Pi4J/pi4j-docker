@@ -36,7 +36,7 @@ RUN cd /pi4j && \
     rm -R /pi4j
 
 # ensure read/write access permissions to the M2 repository cache for all users
-RUN chmod -R a+rw /m2
+RUN chmod -R a+rw /.m2
 
 # configure environment variables
 ENV PI4J_BUILDER_DATE="$BUILDDATE"
