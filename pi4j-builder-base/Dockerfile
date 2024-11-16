@@ -34,6 +34,7 @@ RUN apt-get install --yes openjdk-21-jdk-headless
 ENV JAVA_HOME="/usr/lib/jvm/java-21-openjdk-$TARGETARCH/"
 
 # install Apache Maven
+RUN apt list -a maven
 RUN apt-get install --yes maven=3.9.0
 
 # configure Maven with custom settings for defined M2 repository path
@@ -42,6 +43,10 @@ RUN mkdir -p /m2/repository && chmod -R a+rw /m2 && chmod -R g+s /m2
 
 # clean APT cache
 RUN apt-get clean
+
+# validate installed versions
+RUN java -version
+RUN mvn -v
 
 # configure build time environment variables
 ENV BUILD_FOLDER=/build
