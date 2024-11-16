@@ -34,7 +34,15 @@ RUN apt-get install --yes openjdk-21-jdk-headless
 ENV JAVA_HOME="/usr/lib/jvm/java-21-openjdk-$TARGETARCH/"
 
 # install Apache Maven
-RUN apt-get install --yes maven
+ENV MAVEN_VERSION=3.9.4
+ENV MAVEN_HOME=/opt/maven
+ENV PATH=${MAVEN_HOME}/bin:${PATH}
+
+# Install Maven
+RUN apt-get install -y curl tar && \
+    curl -fsSL https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar -xz -C /opt && \
+    mv /opt/apache-maven-${MAVEN_VERSION} ${MAVEN_HOME} && \
+    rm -rf /var/lib/apt/lists/*
 
 # configure Maven with custom settings for defined M2 repository path
 COPY maven-settings.xml /usr/share/maven/conf/settings.xml
