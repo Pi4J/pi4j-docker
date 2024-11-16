@@ -46,7 +46,7 @@ RUN apt-get install -y curl tar && \
 
 # configure Maven with custom settings for defined M2 repository path
 COPY maven-settings.xml /usr/share/maven/conf/settings.xml
-RUN mkdir -p /m2/repository && chmod -R a+rw /m2 && chmod -R g+s /m2
+RUN mkdir -p /.m2/repository && chmod -R a+rw /.m2 && chmod -R g+s /.m2
 
 # clean APT cache
 RUN apt-get clean
