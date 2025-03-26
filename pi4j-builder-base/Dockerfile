@@ -1,11 +1,18 @@
 # ---------------------------------------------------------------------------------
 # NATIVE BUILDER IMAGE FOR Pi4J (cross-compilers for ARMHF & AARCH64)
 # ---------------------------------------------------------------------------------
-FROM ubuntu:22.04
+# To build locally for testing:
+# docker build -t pi4j-builder-base \
+#   --build-arg TARGETARCH=$(uname -m) \
+#   --build-arg BUILDDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+#   --build-arg BUILDVERSION=1.0.0
+#   --progress=plain .
+# ---------------------------------------------------------------------------------
+FROM azul/zulu-openjdk:24-latest
 ARG TARGETARCH
 ARG BUILDDATE
 ARG BUILDVERSION
-MAINTAINER Robert Savage "robert@pi4j.com"
+MAINTAINER Pi4J "info@pi4j.com"
 
 # docker container image labels
 LABEL org.label-schema.schema-version="1.0"
@@ -29,9 +36,14 @@ RUN apt-get update && \
 # install additional build tools and utilities
 RUN apt-get install --yes git build-essential tree nano file curl wget autoconf autoconf-archive libtool pkg-config
 
-# install OpenJDK (JDK) and configure JAVA_HOME environment variable
-RUN apt-get install --yes openjdk-24-jdk-headless
-ENV JAVA_HOME="/usr/lib/jvm/java-24-openjdk-$TARGETARCH/"
+# Zulu OpenJDK (JDK) is installed because we started from an Ubuntu Zulu Docker image
+# https://docs.azul.com/core/install/docker
+# But we still need to configure the JAVA_HOME environment variable for Maven
+ENV JAVA_HOME="/usr/lib/jvm/zulu24-ca-${TARGETARCH}"
+RUN echo $JAVA_HOME
+RUN ls -l $JAVA_HOME
+RUN $JAVA_HOME/bin/java -version
+RUN java -version
 
 # install Apache Maven
 ENV MAVEN_VERSION=3.9.4

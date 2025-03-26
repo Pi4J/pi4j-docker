@@ -5,7 +5,7 @@ FROM pi4j/pi4j-builder-native:latest
 ARG TARGETARCH
 ARG BUILDDATE
 ARG BUILDVERSION
-MAINTAINER Robert Savage "robert@pi4j.com"
+MAINTAINER Pi4J "info@pi4j.com"
 
 # docker container image labels
 LABEL org.label-schema.schema-version="1.0"

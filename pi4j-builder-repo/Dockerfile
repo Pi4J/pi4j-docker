@@ -5,7 +5,7 @@ FROM ubuntu:22.04
 ARG TARGETARCH
 ARG BUILDDATE
 ARG BUILDVERSION
-MAINTAINER Robert Savage "robert@pi4j.com"
+MAINTAINER Pi4J "info@pi4j.com"
 
 # docker container image labels
 LABEL org.label-schema.schema-version="1.0"
