@@ -29,9 +29,9 @@ RUN apt-get update && \
 # install additional build tools and utilities
 RUN apt-get install --yes git build-essential tree nano file curl wget autoconf autoconf-archive libtool pkg-config
 
-# install OpenJDK 21 (JDK) and configure JAVA_HOME environment variable
-RUN apt-get install --yes openjdk-21-jdk-headless
-ENV JAVA_HOME="/usr/lib/jvm/java-21-openjdk-$TARGETARCH/"
+# install OpenJDK (JDK) and configure JAVA_HOME environment variable
+RUN apt-get install --yes openjdk-24-jdk-headless
+ENV JAVA_HOME="/usr/lib/jvm/java-24-openjdk-$TARGETARCH/"
 
 # install Apache Maven
 ENV MAVEN_VERSION=3.9.4
