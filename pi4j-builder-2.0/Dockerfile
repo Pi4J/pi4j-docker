@@ -7,7 +7,7 @@ ARG BUILDDATE
 ARG BUILDVERSION
 MAINTAINER Pi4J "info@pi4j.com"
 
-# docker container image labels
+# Docker container image labels
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILDDATE
 LABEL org.label-schema.name="pi4j/pi4j-builder"
@@ -22,9 +22,6 @@ RUN echo "========================================================="
 RUN echo "  BUILDING DOCKER Pi4J v$BUILDVERSION BUILDER IMAGE FOR: $TARGETARCH"
 RUN echo "========================================================="
 
-# Install sudo, needed for FFM plugin tests
-RUN apt-get update && apt-get install -y sudo
-
 # ---------------------------------------------------------------------------------
 # PROJECT BUILDER IMAGE FOR Pi4J v2.0
 # ---------------------------------------------------------------------------------
@@ -38,15 +35,21 @@ RUN cd /pi4j && \
     mvn dependency:go-offline -DexcludeGroupIds=com.pi4j -Pnative && \
     rm -R /pi4j
 
-# ensure read/write access permissions to the M2 repository cache for all users
+# Ensure read/write access permissions to the M2 repository cache for all users
 RUN chmod -R a+rw /.m2
 
-# configure environment variables
+# Install sudo, needed for FFM plugin tests and
+# add sudo permissions for GPIO simulator scripts.
+RUN apt-get install -y sudo
+RUN echo "ALL ALL=(ALL) NOPASSWD: /build/plugins/pi4j-plugin-ffm/src/test/resources/*" >> /etc/sudoers.d/gpio-simulator
+RUN chmod 0440 /etc/sudoers.d/gpio-simulator
+
+# Configure environment variables
 ENV PI4J_BUILDER_DATE="$BUILDDATE"
 ENV PI4J_BUILDER="$BUILDVERSION"
 
-# always launch Maven to perform the build
+# Always launch Maven to perform the build
 ENTRYPOINT ["mvn"]
 
-# use these default parameters for the Maven build; can be overridden by caller
+# Use these default parameters for the Maven build; can be overridden by caller
 CMD ["clean", "install", "-DskipTests", "-Pnative,cross-compile"]
