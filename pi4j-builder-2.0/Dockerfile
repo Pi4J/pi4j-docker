@@ -38,25 +38,27 @@ RUN cd /pi4j && \
 # Ensure read/write access permissions to the M2 repository cache for all users
 RUN chmod -R a+rw /.m2
 
-# Install sudo, needed for FFM plugin tests and create a test user and group
+# Install sudo and libi2c-dev, needed for FFM plugin tests and create a test user and group
 RUN apt-get install -y sudo
-RUN groupadd -r pi4jbuilder && useradd -r -g pi4jbuilder pi4jbuilder
-RUN usermod -aG sudo pi4jbuilder
+RUN apt-get install -y libi2c-dev
+RUN groupadd -r pi4j-builder && useradd -r -g pi4j-builder pi4j-builder
+RUN usermod -aG sudo pi4j-builder
 
 # Add sudo permissions for GPIO simulator scripts
-RUN echo "pi4jbuilder ALL=(ALL) NOPASSWD: /build/plugins/pi4j-plugin-ffm/src/test/resources/*" >> /etc/sudoers.d/gpio-simulator
+RUN echo "pi4j-builder ALL=(ALL) NOPASSWD: /build/plugins/pi4j-plugin-ffm/src/test/resources/*" >> /etc/sudoers.d/gpio-simulator
 RUN chmod 0440 /etc/sudoers.d/gpio-simulator
 
 # Set ownership and permissions for test resources directory
 RUN mkdir -p /build/plugins/pi4j-plugin-ffm/src/test/resources/
-RUN chown -R pi4jbuilder:pi4jbuilder /build
+RUN chown -R pi4j-builder:pi4j-builder /build
+RUN chmod -R 755 /build
 
 # Configure environment variables
 ENV PI4J_BUILDER_DATE="$BUILDDATE"
 ENV PI4J_BUILDER="$BUILDVERSION"
 
 # Switch to the test user
-USER pi4jbuilder
+USER pi4j-builder
 
 # Always launch Maven to perform the build
 ENTRYPOINT ["mvn"]
