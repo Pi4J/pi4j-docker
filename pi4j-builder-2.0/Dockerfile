@@ -41,8 +41,9 @@ RUN chmod -R a+rw /.m2
 # Install sudo and libi2c-dev, needed for FFM plugin tests and create a test user and group
 RUN apt-get install -y sudo
 RUN apt-get install -y libi2c-dev
-RUN groupadd -r pi4j-builder && useradd -r -g pi4j-builder pi4j-builder
+RUN groupadd -r pi4j-builder && useradd -m -r -g pi4j-builder pi4j-builder
 RUN usermod -aG sudo pi4j-builder
+RUN echo "pi4j-builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Add sudo permissions for GPIO simulator scripts
 RUN echo "pi4j-builder ALL=(ALL) NOPASSWD: /build/plugins/pi4j-plugin-ffm/src/test/resources/*" >> /etc/sudoers.d/gpio-simulator
