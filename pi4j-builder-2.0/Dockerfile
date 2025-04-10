@@ -22,6 +22,9 @@ RUN echo "========================================================="
 RUN echo "  BUILDING DOCKER Pi4J v$BUILDVERSION BUILDER IMAGE FOR: $TARGETARCH"
 RUN echo "========================================================="
 
+# Install sudo, needed for FFM plugin tests
+RUN apt-get update && apt-get install -y sudo
+
 # ---------------------------------------------------------------------------------
 # PROJECT BUILDER IMAGE FOR Pi4J v2.0
 # ---------------------------------------------------------------------------------
