@@ -54,6 +54,10 @@ RUN mkdir -p /build/plugins/pi4j-plugin-ffm/src/test/resources/
 RUN chown -R pi4j-builder:pi4j-builder /build
 RUN chmod -R 755 /build
 
+# Set ownership and permissions for target directory
+RUN mkdir -p target
+RUN chown -R pi4j-builder:pi4j-builder target
+
 # Configure environment variables
 ENV PI4J_BUILDER_DATE="$BUILDDATE"
 ENV PI4J_BUILDER="$BUILDVERSION"
