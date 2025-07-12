@@ -46,7 +46,7 @@ RUN $JAVA_HOME/bin/java -version
 RUN java -version
 
 # install Apache Maven
-ENV MAVEN_VERSION=3.9.4
+ENV MAVEN_VERSION=3.9.10
 ENV MAVEN_HOME=/opt/maven
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
