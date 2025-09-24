@@ -135,6 +135,11 @@ under the License.
         <password>${env.MAVEN_PASSWORD}</password>
     </server>
     <server>
+        <id>central</id>
+        <username>${env.MAVEN_USERNAME}</username>
+        <password>${env.MAVEN_PASSWORD}</password>
+    </server>
+    <server>
         <id>sonatype-oss-snapshots</id>
         <username>${env.MAVEN_USERNAME}</username>
         <password>${env.MAVEN_PASSWORD}</password>
