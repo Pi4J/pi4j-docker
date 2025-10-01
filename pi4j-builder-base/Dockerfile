@@ -8,7 +8,7 @@
 #   --build-arg BUILDVERSION=1.0.0
 #   --progress=plain .
 # ---------------------------------------------------------------------------------
-FROM azul/zulu-openjdk:24-latest
+FROM azul/zulu-openjdk:25-latest
 ARG TARGETARCH
 ARG BUILDDATE
 ARG BUILDVERSION
@@ -39,7 +39,7 @@ RUN apt-get install --yes git build-essential tree nano file curl wget autoconf 
 # Zulu OpenJDK (JDK) is installed because we started from an Ubuntu Zulu Docker image
 # https://docs.azul.com/core/install/docker
 # But we still need to configure the JAVA_HOME environment variable for Maven
-ENV JAVA_HOME="/usr/lib/jvm/zulu24-ca-${TARGETARCH}"
+ENV JAVA_HOME="/usr/lib/jvm/zulu25-ca-${TARGETARCH}"
 RUN echo $JAVA_HOME
 RUN ls -l $JAVA_HOME
 RUN $JAVA_HOME/bin/java -version
