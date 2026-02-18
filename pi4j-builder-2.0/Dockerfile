@@ -30,7 +30,7 @@ RUN echo "========================================================="
 # of all Maven build plugins and dependencies.  When complete we will
 # simply delete the project sources from the image and leave the M2
 # repository cache as part of the container image
-RUN git clone --single-branch --branch main https://github.com/Pi4J/pi4j-v2 /pi4j
+RUN git clone --single-branch --branch main https://github.com/Pi4J/pi4j /pi4j
 RUN cd /pi4j && \
     mvn dependency:go-offline -DexcludeGroupIds=com.pi4j -Pnative && \
     rm -R /pi4j
