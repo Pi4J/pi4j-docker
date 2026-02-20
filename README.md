@@ -26,11 +26,11 @@ include the following:
  `clean install -DskipTests -Pnative,cross-compile`.  This will effectively build all Pi4J projects including
  the native library projects which will be cross-compiled for RaspberryPi/ARM (32-bit & 64-bit) devices.  
 
-**Note:** Pi4J versions prior to v2.0 are not supported in these Docker images.
+**Note:** Pi4J versions prior to v2 are not supported in these Docker images.
 
 ### How to Build the Pi4J Project using these Docker Images:
 
-#### Build Pi4J v2.0
+#### Build Pi4J v2+
 
 Navigate to the parent "pi4j" directory and execute the following Docker commands:  
 ```
@@ -65,6 +65,6 @@ The Pi4J Docker Builder images are built using the following shell scripts:
 | `./pi4j-builder-native/build.sh`  | builds the Pi4J Native Builder image locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-native/build.sh --push`  | builds the Pi4J Native Builder image and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
 | `./pi4j-builder-native/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Native Builder image. |
-| `./pi4j-builder-2.0/build.sh`  | builds the Pi4J Builder image for Pi4J v2.0  locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
-| `./pi4j-builder-2.0/build.sh --push`  | builds the Pi4J Builder image for Pi4J v2.0 and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
-| `./pi4j-builder-2.0/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Builder image for Pi4J v2.0. |
+| `./pi4j-builder-2.0/build.sh`  | builds the Pi4J Builder image for Pi4J v2+  locally for: `x86_64/amd64` & `aarch64/arm64` architectures. |
+| `./pi4j-builder-2.0/build.sh --push`  | builds the Pi4J Builder image for Pi4J v2+ and pushes to DockerHub for: `x86_64/amd64` & `aarch64/arm64` architectures. |
+| `./pi4j-builder-2.0/clean.sh`  | cleans the build environment and removes images from the local system for the Pi4J Builder image for Pi4J v2+. |
