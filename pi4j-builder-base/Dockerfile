@@ -12,7 +12,7 @@ FROM azul/zulu-openjdk:25-latest
 ARG TARGETARCH
 ARG BUILDDATE
 ARG BUILDVERSION
-MAINTAINER Pi4J "info@pi4j.com"
+LABEL Pi4J="info@pi4j.com"
 
 # docker container image labels
 LABEL org.label-schema.schema-version="1.0"
@@ -45,10 +45,16 @@ RUN ls -l $JAVA_HOME
 RUN $JAVA_HOME/bin/java -version
 RUN java -version
 
-# install Apache Maven
+# Configure Apache Maven
 ENV MAVEN_VERSION=3.9.11
 ENV MAVEN_HOME=/opt/maven
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
+
+# Log ENV variables for debugging purposes
+RUN echo "JAVA_HOME=$JAVA_HOME" && \
+    echo "MAVEN_VERSION=$MAVEN_VERSION" && \
+    echo "MAVEN_HOME=$MAVEN_HOME" && \
+    echo "PATH=$PATH"
 
 # Install Maven
 RUN apt-get install -y curl tar && \
