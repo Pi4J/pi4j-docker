@@ -46,7 +46,7 @@ RUN $JAVA_HOME/bin/java -version
 RUN java -version
 
 # Configure Apache Maven
-ENV MAVEN_VERSION=3.9.12
+ENV MAVEN_VERSION=3.9.16
 ENV MAVEN_HOME=/opt/maven
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
@@ -58,7 +58,7 @@ RUN echo "JAVA_HOME=$JAVA_HOME" && \
 
 # Install Maven
 RUN apt-get install -y curl tar && \
-    curl -fsSL https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar -xz -C /opt && \
+    curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar -xz -C /opt && \
     mv /opt/apache-maven-${MAVEN_VERSION} ${MAVEN_HOME} && \
     rm -rf /var/lib/apt/lists/*
 
